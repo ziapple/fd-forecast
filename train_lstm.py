@@ -14,16 +14,12 @@ BATCH_SIZE = 100
 # 建立Sequential网络模型
 def build_model(input_shape=(cwru_input_emd.IMF_X_LENGTH, cwru_input_emd.TIME_PERIODS), num_classes=cwru_input_emd.LABEL_SIZE):
     """
-    输入:在Keras中，LSTM的输入shape=(samples, time_steps, input_dim)，
-    其中samples表示样本数量，time_steps表示时间步长，input_dim表示每一个时间步上的维度。
-    输出:
-    一个是output_dim表示输出的维度，这个参数其实就是确定了四个小黄矩形中权重矩阵的大小。
-    另一个可选参数return_sequence，这个参数表示LSTM返回的时一个时间序列还是最后一个
-    model.add(LSTM(input_dim=1, output_dim=6,input_length=10, return_sequences=True))
-    model.add(LSTM(output_dim=32,
-                   input_shape=(2, 3),
-                   activation='relu',
-                   return_sequences=True))
+    LSTM(output_dim=CELL_SIZE, input_dim=INPUT_SIZE, input_length=TIME_STEPS, return_sequences=Flase，stateful=FALSE)
+        output_dim：输出单个样本的特征值的维度
+        input_dim： 输入单个样本特征值的维度
+        input_length： 输入的时间点长度
+        return_sequences：布尔值，默认False，控制返回类型。若为True则返回整个序列，否则仅返回输出序列的最后一个输出，即当return_sequences取值为True时，网络输入和输出的时间长度TIME_STEPS保持不变，而当return_sequences取值为FALSE时，网络输出的数据时间长度为1。例如输入数据时间长度为5，输出为一个结果。
+        stateful： 布尔值，默认为False，若为True，则一个batch中下标为i的样本的最终状态将会用作下一个batch同样下标的样本的初始状态。当batch之间的时间是连续的时候，就需要stateful取True，这样batch之间时间连续。
     :param input_shape:
     :param num_classes:
     :return:
